@@ -1,2 +1,5 @@
 .vs/
-e46VideoConverter/ffmpeg32.exe
+e46VideoConverter/bin
+e46VideoConverter/obj
+JinKomponents/bin
+JinKomponents/obj

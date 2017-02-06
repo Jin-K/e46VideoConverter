@@ -54,7 +54,7 @@ namespace e46VideoConverter {
 
                 ProcessStartInfo startInfo = new ProcessStartInfo {
                     FileName = ffmpegPath,
-                    Arguments = string.Join(" ", new[] { "-i", $"\"{openFileDialog1.FileName}\"", "-r", "25", $"\"{saveFileDialog1.FileName}\"", "-loglevel debug" }),
+                    Arguments = string.Join(" ", new[] { "-i", string.Format("\"{0}\"", openFileDialog1.FileName), "-r", "25", string.Format("\"{0}\"", saveFileDialog1.FileName), "-loglevel debug" }),
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -93,19 +93,19 @@ namespace e46VideoConverter {
 
                         if (result) {
                             if (!process.HasExited)
-                                MessageBox.Show($"process ({Path.GetFileName(ffmpegPath)}) hasn't exited", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(string.Format("process ({0}) hasn't exited", Path.GetFileName(ffmpegPath)), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             else
                                 MessageBox.Show("Video converted !");
 
-                            Console.WriteLine($"Exit Code {process.ExitCode} for {Path.GetFileName(ffmpegPath)}");
+                            Console.WriteLine(string.Format("Exit Code {0} for {1}", process.ExitCode, Path.GetFileName(ffmpegPath)));
                         }
-                        else MessageBox.Show($"No more signal received from {Path.GetFileName(ffmpegPath)} process", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else MessageBox.Show(string.Format("No more signal received from {0} process", Path.GetFileName(ffmpegPath)), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex) {
                     Cursor = Cursors.Default;
-                    MessageBox.Show($"An error occured : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show($"Path : {ffmpegPath}");
+                    MessageBox.Show(string.Format("An error occured : {0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("Path : {0}", ffmpegPath));
                 }
             }
             else MessageBox.Show("Input file doesn't exist.");
